@@ -7,7 +7,7 @@
 
   tasks:
   - name: agregar ruta por defecto del usuario
-    command: echo "DefaultRoot                     /var/www/html/{{usuario}} {{usuario}} >> /etc/proftpd.conf
+    command: echo DefaultRoot                     /var/www/html/{{usuario}} {{usuario}} >> /etc/proftpd.conf
 
     notify:
       - restart proftpd

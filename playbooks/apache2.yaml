@@ -17,7 +17,7 @@
       src=files/etc/httpd/sites-available/departamento.conf dest=/etc/httpd/sites-available/departamento.conf mode=0646
 
   - name: habilitar virtualhost
-    command: ln -s /etc/httpd/sites-available/departamentos.conf /etc/httpd/sites-enabled/departamento.conf
+    command: ln -s /etc/httpd/sites-available/departamento.conf /etc/httpd/sites-enabled/departamento.conf
 
     notify:
       - restart apache2
