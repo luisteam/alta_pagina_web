@@ -6,11 +6,12 @@
     - myvarsfile.yml
 
   tasks:
-  - name: agregar ruta por defecto del usuario
-    command: echo DefaultRoot                     /var/www/html/{{usuario}} {{usuario}} >> /etc/proftpd.conf
-
-    notify:
-      - restart proftpd
+    - name: agregar ruta por defecto del usuario
+      lineinfile:
+        dest: /etc/proftpd.conf
+        line: 'DefaultRoot                     /var/www/html/departamento {{usuario}}'
+      notify:
+        - restart proftpd
 
   handlers:
     - name: restart proftpd

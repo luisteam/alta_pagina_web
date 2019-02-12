@@ -7,17 +7,21 @@
 
   tasks:
   - name: crear directorio
-    command: mkdir /var/www/html/{{usuario}}
-
-  - name: chown al directorio
-    command: chown -R {{usuario}}:{{usuario}} /var/www/html/{{usuario}}
+    file:
+      path: /var/www/html/departamento
+      state: directory
+      owner: "{{usuario}}"
+      group: "{{usuario}}"
 
   - name: copiar virtualhost 
     copy: >
       src=files/etc/httpd/sites-available/departamento.conf dest=/etc/httpd/sites-available/departamento.conf mode=0646
 
-  - name: habilitar virtualhost
-    command: ln -s /etc/httpd/sites-available/departamento.conf /etc/httpd/sites-enabled/departamento.conf
+  - name: enlace simbolico del virtualhost 
+    file:
+      src: /etc/httpd/sites-available/departamento.conf
+      dest: /etc/httpd/sites-enabled/departamento.conf
+      state: link
 
     notify:
       - restart apache2

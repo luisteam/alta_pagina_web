@@ -9,5 +9,8 @@
   - name: agregando usuario
     command: useradd -m {{usuario}}
 
-  - name: agregando password {{password}}
-    command: echo {{usuario}}:{{password}} | chpasswd
+  - name: agregando password -> {{password}}
+    user:
+      name: '{{ usuario }}'
+      password: '{{ password | password_hash("sha512") }}'
+      update_password: 'always'

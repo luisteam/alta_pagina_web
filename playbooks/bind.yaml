@@ -3,10 +3,13 @@
   hosts: rajoy
   become: true
   tasks:
-  - name: Set cname departamento in luisgn.conf
-    command: echo departamento IN      CNAME zapatero >> var/cache/bind/db.luisgn
-    notify:
-      - restart bind
+    - name: Set cname departamento in luisgn.conf
+      lineinfile:
+        dest: /var/cache/bind/db.luisgn
+        line: 'departamento IN      CNAME zapatero'
+      notify:
+        - restart bind
+
   handlers:
     - name: restart bind
       service: name=bind9 state=restarted
