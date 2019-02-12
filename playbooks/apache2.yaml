@@ -1,0 +1,27 @@
+---
+- name: configurando apache2 virtualhost
+  hosts: zapatero
+  become: true
+  vars_files:
+    - myvarsfile.yml
+
+  tasks:
+  - name: crear directorio
+    command: mkdir /var/www/html/{{usuario}}
+
+  - name: chown al directorio
+    command: chown -R {{usuario}}:{{usuario}} /var/www/html/{{usuario}}
+
+  - name: copiar virtualhost 
+    copy: >
+      src=files/etc/httpd/sites-available/departamento.conf dest=/etc/httpd/sites-available/departamento.conf mode=0646
+
+  - name: habilitar virtualhost
+    command: ln -s /etc/httpd/sites-available/departamentos.conf /etc/httpd/sites-enabled/departamento.conf
+
+    notify:
+      - restart apache2
+
+  handlers:
+    - name: restart apache2
+      service: name=httpd state=restarted

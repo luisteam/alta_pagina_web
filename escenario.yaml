@@ -1,0 +1,4 @@
+- include: playbooks/bind.yaml
+- include: playbooks/usuario.yaml
+- include: playbooks/apache2.yaml
+- include: playbooks/ftp.yaml

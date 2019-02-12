@@ -1,0 +1,13 @@
+---
+- name: creating user
+  hosts: zapatero
+  become: true
+  vars_files:
+    - myvarsfile.yml
+
+  tasks:
+  - name: agregando usuario
+    command: useradd -m {{usuario}}
+
+  - name: agregando password {{password}}
+    command: echo {{usuario}}:{{password}} | chpasswd

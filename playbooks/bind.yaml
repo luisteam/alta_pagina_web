@@ -1,0 +1,12 @@
+---
+- name: Bind9 configuration
+  hosts: rajoy
+  become: true
+  tasks:
+  - name: Set cname departamento in luisgn.conf
+    command: echo "departamento IN      CNAME zapatero" >> var/cache/bind/db.luisgn
+    notify:
+      - restart bind
+  handlers:
+    - name: restart bind
+      service: name=bind9 state=restarted
